@@ -1,0 +1,42 @@
+{%extends 'base.html' %}
+
+{%block content%}
+    <div class="card_section container my-4">
+      <h1 class='text-center text-secondary pb-4'>Show All Task(s)</h1>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            {%for data in taskData %}
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">ID:<span class='text-success'> {{data.id}} </span></h5>
+                    <div class="card-body">
+                      <p style='color:indianred'>Date: {{data.task_assigned_date | date:"SHORT_DATE_FORMAT"}}</p>
+                      <h5 class="card-title"> {{data.task_title}} </h5>
+                      <p class="card-text text-secondary">{{data.task_description | truncatechars:140 }}</p>
+                      <p class="card-text"> Category: 
+                        {%for category in  data.select_task_category.all%}
+                        <span style="padding-top:3px; padding-bottom:3px" class='btn mb-2 px-3 rounded bg-light border'>{{category}}</span>
+                        {%endfor%}
+                      </p>
+
+                        {%if data.is_completed == False %}
+                            <div class="text-center">
+                              <a style='width:40%' href="{%url 'edit_task' data.id %}" class="btn btn-primary">Edit</a>
+                            <a style='width:40%' href="{% url 'delete_task' data.id %}" class=" btn btn-danger">Delete</a>
+                            </div>
+                        {%else%}
+                            <h6 class='text-danger text-center'>COMPLETED</h6>
+                        {%endif%}
+
+
+                    </div>
+                  </div>
+            </div>
+            {%endfor%}
+
+          </div>
+
+
+    </div>
+{%endblock%}

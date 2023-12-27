@@ -1,0 +1,14 @@
+{%extends 'base.html' %}
+
+{%  load crispy_forms_tags %}
+{% block content %}
+<div class="form_section my-5">
+    <form class='p-4' style="background-color:aliceblue; width:50% ; margin : auto" method="post">
+        <h1 class='pb-3 text-center'>Add Task page</h1>
+        {% csrf_token %}
+        {{form | crispy}}
+    
+        <button class="btn btn-warning">Submit</button>
+    </form>
+</div>
+{% endblock %}
